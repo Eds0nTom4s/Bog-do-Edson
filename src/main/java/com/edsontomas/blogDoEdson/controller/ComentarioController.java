@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edsontomas.blogDoEdson.entity.Postagem;
-import com.edsontomas.blogDoEdson.repository.PostagemRepository;
+import com.edsontomas.blogDoEdson.entity.Comentario;
+import com.edsontomas.blogDoEdson.repository.ComentarioRepository;
 
 @RestController
-@RequestMapping("/api/posts")
-public class PostagemController {
+@RequestMapping("/api/comentarios")
+public class ComentarioController {
 
 	@Autowired
-	private PostagemRepository postagemRepo;
+	private ComentarioRepository comentarioRepo;
 	
 	@GetMapping
-	public List<Postagem> listarPostagem(){
-		return postagemRepo.findAll();
-	}
+    public List<Comentario> listarComentarios() {
+        return comentarioRepo.findAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<Comentario> criarComentario(@RequestBody Comentario comentario) {
+        return ResponseEntity.ok(comentarioRepo.save(comentario));
+    }
 	
-	@PostMapping
-	public ResponseEntity<Postagem> criarPostagem(@RequestBody Postagem post){
-	
-		return ResponseEntity.ok(postagemRepo.save(post));
-	}
 	
 }

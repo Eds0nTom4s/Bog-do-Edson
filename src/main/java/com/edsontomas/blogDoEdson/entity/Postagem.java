@@ -1,12 +1,15 @@
 package com.edsontomas.blogDoEdson.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Postagem {
@@ -14,9 +17,13 @@ public class Postagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String titulo;
 	private String conteudo;
 	private LocalDateTime dataCriacao;
+	
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	private List<Comentario> comentarios;
 	
 	public Postagem() {
 		// TODO Auto-generated constructor stub
@@ -29,7 +36,6 @@ public class Postagem {
 		this.conteudo = conteudo;
 		this.dataCriacao = dataCriacao;
 	}
-
 
 	public Long getId() {
 		return id;
